@@ -20,6 +20,7 @@ export class MapDirective implements OnInit {
   @Input() isPickupRequested: boolean;
 
   public map;
+  public isMapIdle: boolean;
 
   constructor(public nav: NavController,
               public loadingCtrl: LoadingController
@@ -28,10 +29,20 @@ export class MapDirective implements OnInit {
 
   ngOnInit(): any {
     this.map = this.createMap();
+    this.addMapEventListener();
 
     this.getCurrentLocation().subscribe(location => {
       this.centerLocation(location);
     })
+  }
+
+  addMapEventListener(){
+    google.maps.event.addListener(this.map, 'dragstart', () => {
+      this.isMapIdle = false;
+    });
+    google.maps.event.addListener(this.map, 'idle', () => {
+      this.isMapIdle = true;
+    });
   }
 
   createMap(location = new google.maps.LatLng(40.712784, -74.005941)){
