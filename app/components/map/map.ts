@@ -1,4 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
+import {Loading, NavController} from 'ionic-angular';
+import {Geolocation} from 'ionic-native';
+import {Observable} from 'rxjs/Observable';
 
 /*
   Generated class for the Map component.
@@ -16,11 +19,15 @@ export class MapDirective implements OnInit {
 
   public map;
 
-  constructor() {
+  constructor(public nav: NavController) {
   }
 
   ngOnInit(): any {
-    this.map = this.createMap()
+    this.map = this.createMap();
+
+    this.getCurrentLocation().subscribe(location => {
+      this.map.panTo(location);
+    })
   }
 
   createMap(location = new google.maps.LatLng(40.712784, -74.005941)){
@@ -36,4 +43,39 @@ export class MapDirective implements OnInit {
 
     return map;
   }
+
+  getCurrentLocation(){
+
+    let loading = Loading.create({
+      content: 'Locating...'
+    });
+
+    this.nav.present(loading);
+
+    let options = {
+      timeout: 10000,
+      enableHighAccuracy: true
+    };
+
+    let locationObs = Observable.create(observable => {
+      Geolocation.getCurrentPosition(options)
+        .then(resp => {
+            let lat = resp.coords.latitude;
+            let lng = resp.coords.longitude;
+
+            let location = new google.maps.LatLng(lat, lng);
+            observable.next(location);
+
+            loading.dismiss();
+          },
+          (err) => {
+            console.log('Geolocation err" ' + err);
+          }
+        )
+
+    })
+
+    return locationObs;
+  }
+
 }
