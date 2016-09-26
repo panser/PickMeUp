@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
 import {Observable} from 'rxjs/Observable';
+import {PickupDirective} from '../pickup/pickup'
 
 /*
   Generated class for the Map component.
@@ -11,7 +12,8 @@ import {Observable} from 'rxjs/Observable';
 */
 @Component({
   selector: 'map',
-  templateUrl: 'build/components/map/map.html'
+  templateUrl: 'build/components/map/map.html',
+  directives: [PickupDirective],
 })
 export class MapDirective implements OnInit {
 
