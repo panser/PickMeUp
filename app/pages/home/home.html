@@ -9,12 +9,17 @@
       <button [hidden]="isPickupRequested" block primary (click)="confirmPickup()">PickMeUp</button>
       <button [hidden]="!isPickupRequested" block secondary (click)="cancelPickup()">On the way...</button>
     </ion-title>
+    <ion-buttons end>
+      <button (click)="map.centerLocation()">
+        <ion-icon name="navigate"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div class="map-wrapper">
-    <map [isPickupRequested]="isPickupRequested"></map>
+    <map #map [isPickupRequested]="isPickupRequested"></map>
   </div>
 
   <div class="bottom request-controls">

@@ -28,7 +28,7 @@ export class MapDirective implements OnInit {
     this.map = this.createMap();
 
     this.getCurrentLocation().subscribe(location => {
-      this.map.panTo(location);
+      this.centerLocation(location);
     })
   }
 
@@ -44,6 +44,18 @@ export class MapDirective implements OnInit {
     let map = new google.maps.Map(mapEl, mapOptions);
 
     return map;
+  }
+
+  centerLocation(location){
+    if(location){
+      this.map.panTo(location);
+    }
+    else{
+      this.getCurrentLocation().subscribe(currentLocation => {
+        this.map.panTo(currentLocation);
+      })
+    }
+
   }
 
   getCurrentLocation(){
