@@ -1,4 +1,11 @@
 <div class="wrapper">
   <div id="map"></div>
-  <pickup [map]="map" [isPinSet]="isMapIdle"></pickup>
+  <pickup
+    [map]="map"
+    [isPinSet]="isMapIdle">
+  </pickup>
+  <available-cars
+    [map]="map"
+    [isPickupRequested]="isPickupRequested">
+  </available-cars>
 </div>
