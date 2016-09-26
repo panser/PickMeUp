@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Loading, NavController} from 'ionic-angular';
+import {LoadingController, NavController} from 'ionic-angular';
 import {Geolocation} from 'ionic-native';
 import {Observable} from 'rxjs/Observable';
 
@@ -19,7 +19,9 @@ export class MapDirective implements OnInit {
 
   public map;
 
-  constructor(public nav: NavController) {
+  constructor(public nav: NavController,
+              public loadingCtrl: LoadingController
+  ) {
   }
 
   ngOnInit(): any {
@@ -46,11 +48,11 @@ export class MapDirective implements OnInit {
 
   getCurrentLocation(){
 
-    let loading = Loading.create({
-      content: 'Locating...'
+    let loading = this.loadingCtrl.create({
+      content: 'Loading...'
     });
 
-    this.nav.present(loading);
+    loading.present();
 
     let options = {
       timeout: 10000,
