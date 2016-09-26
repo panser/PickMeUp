@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 /*
   Generated class for the Map component.
@@ -11,6 +11,8 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: 'build/components/map/map.html'
 })
 export class MapDirective implements OnInit {
+
+  @Input() isPickupRequested: boolean;
 
   public map;
 
