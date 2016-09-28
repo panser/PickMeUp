@@ -27,6 +27,10 @@ export class CarService {
     return this.simulate.riderDroppedOff();
   }
 
+  dropoffCar(pickupLocation, destination){
+    return this.simulate.dropoffPickupCar(pickupLocation, destination);
+  }
+
   getPickupCar(){
     return this.simulate.getPickupCar();
   }

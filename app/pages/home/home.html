@@ -19,7 +19,10 @@
 
 <ion-content padding>
   <div class="map-wrapper">
-    <map #map [isPickupRequested]="isPickupRequested"></map>
+    <map #map
+         [isPickupRequested]="isPickupRequested"
+         [destination]="destination">
+    </map>
     <destination-address
       [hidden]="!isRiderPickedUp"
       (newDest)="setDestination($event)">

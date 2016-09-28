@@ -22,6 +22,7 @@ import {PickupCarDirective} from "../pickup-car/pickup-car";
 export class MapDirective implements OnInit {
 
   @Input() isPickupRequested: boolean;
+  @Input() destination: string;
 
   public map;
   public isMapIdle: boolean;

@@ -17,6 +17,7 @@ export class PickupCarDirective implements OnInit, OnChanges{
   @Input() map: google.maps.Map;
   @Input() isPickupRequested: boolean;
   @Input() pickupLocation: google.maps.LatLng;
+  @Input() destination: string;
 
   public pickupCarMarker: any;
   public polylinePath: google.maps.Polyline;
@@ -33,12 +34,18 @@ export class PickupCarDirective implements OnInit, OnChanges{
 
 
   ngOnChanges(changes: SimpleChanges): any {
-    if(this.isPickupRequested){
-      this.requestCar();
+
+    if(this.destination){
+      this.dropoffcar();
     }
     else{
-      this.removeCar();
-      this.removeDirections();
+      if(this.isPickupRequested){
+        this.requestCar();
+      }
+      else{
+        this.removeCar();
+        this.removeDirections();
+      }
     }
   }
 
@@ -100,6 +107,21 @@ export class PickupCarDirective implements OnInit, OnChanges{
         this.showDirections(car.path);
         // keep updating car
         this.updateCar( () => this.checkForRiderPickup() );
+      })
+  }
+
+  checkForRiderDropoff(){
+    this.carService.pollForRiderDropoff().subscribe(data => {
+      this.pickupPubSub.emitDropOff();
+    })
+  }
+
+
+  dropoffcar(){
+    this.carService.dropoffCar(this.pickupLocation, this.destination)
+      .subscribe( car => {
+        // keep updating car
+        this.updateCar( () => this.checkForRiderDropoff() );
       })
   }
 

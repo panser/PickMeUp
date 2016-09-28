@@ -125,6 +125,10 @@ export class SimulateService {
     return this.simulateRoute(start, end);
   }
 
+  dropoffPickupCar(pickupLocation, destination){
+    return this.simulateRoute(pickupLocation, destination);
+  }
+
   getCars(lat, lng){
     let carData = this.cars[this.carIndex];
     this.carIndex++;

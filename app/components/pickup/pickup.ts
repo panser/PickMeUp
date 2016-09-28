@@ -18,6 +18,7 @@ export class PickupDirective implements OnInit, OnChanges{
   @Input() isPinSet: boolean;
   @Input() isPickupRequested: boolean;
   @Input() map: google.maps.Map;
+  @Input() destination: string;
   @Output() updatedPickupLocation: EventEmitter<google.maps.LatLng> = new EventEmitter<google.maps.LatLng>();
 
   private pickupMarker: google.maps.Marker;
@@ -48,6 +49,10 @@ export class PickupDirective implements OnInit, OnChanges{
       else {
         this.removePickupMarker();
       }
+    }
+
+    if(this.destination){
+      this.removePickupMarker();
     }
   }
 
