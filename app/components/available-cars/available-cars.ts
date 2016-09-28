@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, OnChanges} from '@angular/core';
 import {CarService} from "../../providers/car/car";
 import * as SlidingMarker from 'marker-animate-unobtrusive';
 
@@ -11,9 +11,9 @@ import * as SlidingMarker from 'marker-animate-unobtrusive';
 @Component({
   selector: 'available-cars',
   templateUrl: 'build/components/available-cars/available-cars.html',
-  providers: [CarService],
+  providers: [],
 })
-export class AvailableCarsDirective implements OnInit{
+export class AvailableCarsDirective implements OnInit, OnChanges{
   @Input() map: google.maps.Map;
   @Input() isPickupRequested: boolean;
 

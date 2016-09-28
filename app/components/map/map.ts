@@ -4,6 +4,7 @@ import {Geolocation} from 'ionic-native';
 import {Observable} from 'rxjs/Observable';
 import {PickupDirective} from '../pickup/pickup'
 import {AvailableCarsDirective} from "../available-cars/available-cars";
+import {CarService} from "../../providers/car/car";
 
 /*
   Generated class for the Map component.
@@ -15,6 +16,7 @@ import {AvailableCarsDirective} from "../available-cars/available-cars";
   selector: 'map',
   templateUrl: 'build/components/map/map.html',
   directives: [PickupDirective, AvailableCarsDirective],
+  providers: [CarService],
 })
 export class MapDirective implements OnInit {
 
@@ -22,6 +24,7 @@ export class MapDirective implements OnInit {
 
   public map;
   public isMapIdle: boolean;
+  public currentLocation: google.maps.LatLng;
 
   constructor(public nav: NavController,
               public loadingCtrl: LoadingController
@@ -35,6 +38,11 @@ export class MapDirective implements OnInit {
     this.getCurrentLocation().subscribe(location => {
       this.centerLocation(location);
     })
+  }
+
+  updatedPickupLocation(location){
+    this.currentLocation = location;
+    this.centerLocation(location);
   }
 
   addMapEventListener(){

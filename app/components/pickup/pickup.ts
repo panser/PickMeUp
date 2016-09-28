@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
 
 /*
   Generated class for the Pickup component.
@@ -8,12 +8,14 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 */
 @Component({
   selector: 'pickup',
-  templateUrl: 'build/components/pickup/pickup.html'
+  templateUrl: 'build/components/pickup/pickup.html',
+  providers: [],
 })
 export class PickupDirective implements OnChanges{
 
   @Input() isPinSet: boolean;
   @Input() map: google.maps.Map;
+  @Output() updatedPickupLocation: EventEmitter<google.maps.LatLng> = new EventEmitter<google.maps.LatLng>();
 
   private pickupMarker: google.maps.Marker;
   private popup: google.maps.InfoWindow;
@@ -45,6 +47,9 @@ export class PickupDirective implements OnChanges{
     }, 750);
 
     this.showPickupTime();
+
+    // send pickup location
+    this.updatedPickupLocation.next(this.pickupMarker.getPosition());
   }
 
   removePickupMarker() {
