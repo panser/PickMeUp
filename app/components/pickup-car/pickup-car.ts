@@ -62,7 +62,7 @@ export class PickupCarDirective implements OnInit, OnChanges{
     this.polylinePath.setMap(this.map);
   }
 
-  updateCar(){
+  updateCar(cbDone){
       this.carService.getPickupCar().subscribe(car =>{
         // animate car to next point
         this.pickupCarMarker.setPosition(car.position);
@@ -74,13 +74,20 @@ export class PickupCarDirective implements OnInit, OnChanges{
         // keep updating car
         if (car.path.length > 1) {
           setTimeout(() => {
-            this.updateCar();
+            this.updateCar(cbDone);
           }, 1000);
         }
         else{
           // car arrived
+          cbDone();
         }
       })
+  }
+
+  checkForRiderPickup(){
+    this.carService.pollForRiderPickup().subscribe(data => {
+      this.pickupPubSub.emitPickUp();
+    })
   }
 
   requestCar(){
@@ -92,7 +99,7 @@ export class PickupCarDirective implements OnInit, OnChanges{
         // show car path/directions to you
         this.showDirections(car.path);
         // keep updating car
-        this.updateCar();
+        this.updateCar( () => this.checkForRiderPickup() );
       })
   }
 

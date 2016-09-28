@@ -19,6 +19,14 @@ export class CarService {
     this.simulate = new SimulateService();
   }
 
+  pollForRiderPickup(){
+    return this.simulate.riderPickedUp();
+  }
+
+  pollForRiderDropoff(){
+    return this.simulate.riderDroppedOff();
+  }
+
   getPickupCar(){
     return this.simulate.getPickupCar();
   }

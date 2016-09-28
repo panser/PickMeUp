@@ -21,6 +21,16 @@ export class SimulateService {
     this.directionService = new google.maps.DirectionsService();
   }
 
+  riderPickedUp(){
+    // simulate rider picked up after 1 seconds
+    return Observable.timer(1000);
+  }
+
+  riderDroppedOff(){
+    // simulate rider dropped off after 1 seconds
+    return Observable.timer(1000);
+  }
+
   getPickupCar(){
     return Observable.create(observable => {
       let car = this.myRoute[this.myRouteIndex];
