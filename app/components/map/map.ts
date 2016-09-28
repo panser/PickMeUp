@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {PickupDirective} from '../pickup/pickup'
 import {AvailableCarsDirective} from "../available-cars/available-cars";
 import {CarService} from "../../providers/car/car";
+import {PickupCarDirective} from "../pickup-car/pickup-car";
 
 /*
   Generated class for the Map component.
@@ -15,7 +16,7 @@ import {CarService} from "../../providers/car/car";
 @Component({
   selector: 'map',
   templateUrl: 'build/components/map/map.html',
-  directives: [PickupDirective, AvailableCarsDirective],
+  directives: [PickupDirective, AvailableCarsDirective, PickupCarDirective],
   providers: [CarService],
 })
 export class MapDirective implements OnInit {

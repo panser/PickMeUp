@@ -11,7 +11,7 @@ import {CarService} from "../../providers/car/car";
   selector: 'pickup-car',
   templateUrl: 'build/components/pickup-car/pickup-car.html'
 })
-export class PickupCar implements OnInit, OnChanges{
+export class PickupCarDirective implements OnInit, OnChanges{
   @Input() map: google.maps.Map;
   @Input() isPickupRequested: boolean;
   @Input() pickupLocation: google.maps.LatLng;
@@ -36,12 +36,13 @@ export class PickupCar implements OnInit, OnChanges{
   }
 
   requestCar(){
-    this.carService.findPickupCar(this.pickupLocation)
-      .subscribe(car => {
-        // show car marker
-        // show car path/directions to you
-        // keep updating car
-      })
+    console.log('request car ' + this.pickupLocation);
+    // this.carService.findPickupCar(this.pickupLocation)
+    //   .subscribe(car => {
+    //     // show car marker
+    //     // show car path/directions to you
+    //     // keep updating car
+    //   })
   }
 
   removeCar(){
