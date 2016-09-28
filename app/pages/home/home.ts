@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {NavController, Alert, AlertController} from 'ionic-angular';
 import { MapDirective } from '../../components/map/map';
 import {PickupPubSub} from "../../providers/pickup-pub-sub/pickup-pub-sub";
-import {min} from "rxjs/operator/min";
 import {DestinationAddressDirective} from "../../components/destination-address/destination-address";
 
 @Component({
@@ -18,7 +17,11 @@ export class HomePage {
   public timeTillArrival: number;
   public destination: string;
 
-  constructor(private pickupPubSub: PickupPubSub) {
+  constructor(
+    private pickupPubSub: PickupPubSub,
+    public nav: NavController,
+    private alertCtrl: AlertController
+  ) {
     this.isPickupRequested = false;
     this.isRiderPickedUp = false;
     this.timeTillArrival = 5;
@@ -59,7 +62,42 @@ export class HomePage {
     this.isPickupRequested = true;
   }
 
+  rateDriver(){
+    let prompt = this.alertCtrl.create({
+      title: 'Rate Driver',
+      message: 'Select a rating for you driver',
+      inputs: [
+        {
+          type: 'radio',
+          label: 'Perfect',
+          value: 'perfect',
+          checked: true
+        },
+        {
+          type: 'radio',
+          label: 'Okay',
+          value: 'okay',
+        },
+        {
+          type: 'radio',
+          label: 'Horrible',
+          value: 'horrible',
+        },
+      ],
+      buttons: [{
+        text: 'Submit',
+        handler: rating => {
+          // TODO: send rating to server
+          console.log(rating);
+        }
+      }]
+    });
+
+    prompt.present(prompt);
+  }
+
   riderDroppedOff(){
+    this.rateDriver();
     this.isRiderPickedUp = false;
     this.isPickupRequested = false;
     this.destination = null;
