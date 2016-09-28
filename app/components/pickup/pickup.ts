@@ -1,4 +1,6 @@
-import {Component, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges, Output, EventEmitter, OnInit} from '@angular/core';
+import {PickupPubSub} from "../../providers/pickup-pub-sub/pickup-pub-sub";
+import {Observable} from "rxjs";
 
 /*
   Generated class for the Pickup component.
@@ -11,7 +13,7 @@ import {Component, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '
   templateUrl: 'build/components/pickup/pickup.html',
   providers: [],
 })
-export class PickupDirective implements OnChanges{
+export class PickupDirective implements OnInit, OnChanges{
 
   @Input() isPinSet: boolean;
   @Input() isPickupRequested: boolean;
@@ -20,11 +22,23 @@ export class PickupDirective implements OnChanges{
 
   private pickupMarker: google.maps.Marker;
   private popup: google.maps.InfoWindow;
+  private pickupSubscription: any;
 
-  constructor() {
+  constructor(
+    private pickupPubSub: PickupPubSub
+  ) {
   }
 
-  // do not allow pickup pin/location
+
+  ngOnInit(): any {
+    this.pickupSubscription = this.pickupPubSub.watch().subscribe(e => {
+      if( e.event === this.pickupPubSub.EVENTS.ARRIVAL_TIME){
+        this.updateTime(e.data);
+      }
+    })
+  }
+
+// do not allow pickup pin/location
   // to change if pickup is requested
   ngOnChanges(changes: SimpleChanges): any {
     if(!this.isPickupRequested) {
@@ -74,6 +88,11 @@ export class PickupDirective implements OnChanges{
     google.maps.event.addListener(this.pickupMarker, 'click', () => {
       this.popup.open(this.map, this.pickupMarker);
     })
+  }
+
+  updateTime(seconds){
+    let minutes = Math.floor(seconds/60);
+    this.popup.setContent(`<h5>${minutes} minutes</h5>`);
   }
 
 }

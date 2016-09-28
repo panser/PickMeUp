@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
 import {CarService} from "../../providers/car/car";
 import * as SlidingMarker from 'marker-animate-unobtrusive';
+import {PickupPubSub} from "../../providers/pickup-pub-sub/pickup-pub-sub";
 
 /*
   Generated class for the PickupCar component.
@@ -21,7 +22,8 @@ export class PickupCarDirective implements OnInit, OnChanges{
   public polylinePath: google.maps.Polyline;
 
   constructor(
-    public carService: CarService
+    public carService: CarService,
+    private pickupPubSub: PickupPubSub
   ) {
   }
 
@@ -66,6 +68,8 @@ export class PickupCarDirective implements OnInit, OnChanges{
         this.pickupCarMarker.setPosition(car.position);
         // set direction path to car
         this.polylinePath.setPath(car.path);
+        // update arrival time
+        this.pickupPubSub.emitArrivakTime(car.time);
 
         // keep updating car
         if (car.path.length > 1) {
