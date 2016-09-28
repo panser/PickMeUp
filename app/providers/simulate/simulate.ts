@@ -67,6 +67,7 @@ export class SimulateService {
       }
     }
 
+    return increments;
   }
 
   calculateRoute(start, end){
@@ -130,15 +131,15 @@ export class SimulateService {
     cars: [{
       id: 1,
       coord: {
-        lat: 50.509900,
-        lng: 30.457610
+        lat: 50.505668,
+        lng: 30.468006
       }
     },
       {
         id: 2,
         coord: {
-          lat: 30.457610,
-          lng: 30.454638
+          lat: 50.504876,
+          lng: 30.442815
         }
       }
     ]
@@ -148,15 +149,15 @@ export class SimulateService {
     cars: [{
       id: 1,
       coord: {
-        lat: 50.510855,
-        lng: 30.457685
+        lat: 50.505504,
+        lng: 30.463414
       }
     },
       {
         id: 2,
         coord: {
-          lat: 50.507949,
-          lng: 30.456676
+          lat: 50.505477,
+          lng: 30.447235
         }
       }
     ]
@@ -166,15 +167,15 @@ export class SimulateService {
     cars: [{
       id: 1,
       coord: {
-        lat: 50.506775,
-        lng: 30.462610
+        lat: 50.504794,
+        lng: 30.459466
       }
     },
       {
         id: 2,
         coord: {
-          lat: 50.507847,
-          lng: 30.456376
+          lat: 50.505204,
+          lng: 30.454831
         }
       }
     ]
@@ -184,15 +185,15 @@ export class SimulateService {
     cars: [{
       id: 1,
       coord: {
-        lat: 50.507410,
-        lng: 30.461172
+        lat: 50.507688,
+        lng: 30.458221
       }
     },
       {
         id: 2,
         coord: {
-          lat: 50.507089,
-          lng: 30.458243
+          lat: 50.504822,
+          lng: 30.459337
         }
       }
     ]
@@ -202,15 +203,15 @@ export class SimulateService {
     cars: [{
       id: 1,
       coord: {
-        lat: 50.508959,
-        lng: 30.461676
+        lat: 50.508916,
+        lng: 30.457234
       }
     },
       {
         id: 2,
         coord: {
-          lat: 50.510030,
-          lng: 30.457095
+          lat: 50.501246,
+          lng: 30.460324
         }
       }
     ]

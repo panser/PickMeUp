@@ -20,7 +20,7 @@ export class CarService {
   }
 
   findPickupCar(pickupLocation){
-    this.simulate.findPickupCar();
+    return this.simulate.findPickupCar(pickupLocation);
   }
 
   getCars(lat, lng){
