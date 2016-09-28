@@ -37,12 +37,12 @@ export class PickupCarDirective implements OnInit, OnChanges{
 
   requestCar(){
     console.log('request car ' + this.pickupLocation);
-    // this.carService.findPickupCar(this.pickupLocation)
-    //   .subscribe(car => {
-    //     // show car marker
-    //     // show car path/directions to you
-    //     // keep updating car
-    //   })
+    this.carService.findPickupCar(this.pickupLocation)
+      .subscribe(car => {
+        // show car marker
+        // show car path/directions to you
+        // keep updating car
+      })
   }
 
   removeCar(){
