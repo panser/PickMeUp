@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CarService} from "../../providers/car/car";
+import * as SlidingMarker from 'marker-animate-unobtrusive';
 
 /*
   Generated class for the AvailableCars component.
@@ -29,11 +30,13 @@ export class AvailableCarsDirective implements OnInit{
   }
 
   addCarMarker(car){
-    let carMarker = new google.maps.Marker({
+    let carMarker = new SlidingMarker({
       map: this.map,
       position: new google.maps.LatLng(car.coord.lat, car.coord.lng),
       icon: 'img/car-icon.png'
     });
+    carMarker.setDuration(2000);
+    carMarker.setEasing('linear');
 
     carMarker.set('id', car.id); //MVCObject()
     this.carMarkers.push(carMarker);
