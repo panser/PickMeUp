@@ -29,6 +29,20 @@ export class AvailableCarsDirective implements OnInit{
     this.fetchAndRefreshCars();
   }
 
+  ngOnChanges(){
+    if(this.isPickupRequested){
+      this.removeCarMarkers();
+    }
+  }
+
+  removeCarMarkers(){
+    let numOfCars = this.carMarkers.length;
+    while(numOfCars--){
+      let car = this.carMarkers.pop();
+      car.setMap(null);
+    }
+  }
+
   addCarMarker(car){
     let carMarker = new SlidingMarker({
       map: this.map,
