@@ -36,6 +36,7 @@ export class PickupCarDirective implements OnInit, OnChanges{
     }
     else{
       this.removeCar();
+      this.removeDirections();
     }
   }
 
@@ -91,8 +92,18 @@ export class PickupCarDirective implements OnInit, OnChanges{
       })
   }
 
-  removeCar(){
+  removeDirections(){
+    if(this.polylinePath){
+      this.polylinePath.setMap(null);
+      this.polylinePath = null;
+    }
+  }
 
+  removeCar(){
+    if(this.pickupCarMarker){
+      this.pickupCarMarker.setMap(null);
+      this.pickupCarMarker = null;
+    }
   }
 
 }
