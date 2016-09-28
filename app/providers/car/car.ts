@@ -19,6 +19,10 @@ export class CarService {
     this.simulate = new SimulateService();
   }
 
+  getPickupCar(){
+    return this.simulate.getPickupCar();
+  }
+
   findPickupCar(pickupLocation){
     return this.simulate.findPickupCar(pickupLocation);
   }

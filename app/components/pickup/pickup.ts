@@ -14,6 +14,7 @@ import {Component, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '
 export class PickupDirective implements OnChanges{
 
   @Input() isPinSet: boolean;
+  @Input() isPickupRequested: boolean;
   @Input() map: google.maps.Map;
   @Output() updatedPickupLocation: EventEmitter<google.maps.LatLng> = new EventEmitter<google.maps.LatLng>();
 
@@ -23,13 +24,16 @@ export class PickupDirective implements OnChanges{
   constructor() {
   }
 
-
+  // do not allow pickup pin/location
+  // to change if pickup is requested
   ngOnChanges(changes: SimpleChanges): any {
-    if(this.isPinSet) {
-      this.showPickupMarker();
-    }
-    else {
-      this.removePickupMarker();
+    if(!this.isPickupRequested) {
+      if (this.isPinSet) {
+        this.showPickupMarker();
+      }
+      else {
+        this.removePickupMarker();
+      }
     }
   }
 
