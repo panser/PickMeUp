@@ -32,6 +32,7 @@ export class PickupDirective implements OnChanges{
   }
 
   showPickupMarker() {
+
     this.pickupMarker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.BOUNCE,

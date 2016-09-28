@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs";
+import {SimulateService} from "../simulate/simulate";
 
 /*
   Generated class for the Car provider.
@@ -10,16 +11,20 @@ import {Observable} from "rxjs";
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class Car {
+export class CarService {
 
-  constructor(private http: Http) {}
+  public simulate: SimulateService;
+
+  constructor() {
+    this.simulate = new SimulateService();
+  }
 
   getCars(lat, lng){
     return Observable
       .interval(2000)
-      .switchMap(() => {
-
-      })
+      .switchMap(() =>
+        this.simulate.getCars(lat, lng)
+      )
       .share();
   }
 }
